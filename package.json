@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/ppz-pro/resh.git"
   },
-  "keywords": [],
+  "keywords": ["http", "router", "web", "aop", "api", "rest"],
   "author": "",
   "license": "ISC",
   "bugs": {
