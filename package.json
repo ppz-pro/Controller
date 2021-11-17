@@ -1,18 +1,30 @@
 {
   "name": "@ppzp/http-router",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ppz-pro/resh.git"
+    "url": "git+https://github.com/ppz-pro/http-router.git"
   },
-  "keywords": ["http", "router", "web", "aop", "api", "rest"],
+  "keywords": [
+    "http",
+    "router",
+    "web",
+    "aop",
+    "api",
+    "rest"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ppz-pro/resh/issues"
+    "url": "https://github.com/ppz-pro/http-router/issues"
   },
-  "homepage": "https://github.com/ppz-pro/resh#readme",
-  "dependencies": {}
+  "homepage": "https://github.com/ppz-pro/http-router#readme",
+  "dependencies": {
+    "@ppzp/sandwich": "0.0.3"
+  },
+  "peerDependencies": {
+    "lodash": ">=4.0.0"
+  }
 }
