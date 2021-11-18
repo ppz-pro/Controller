@@ -1,17 +1,32 @@
-var Http = require('http') // 引入 node 内置的 http 模块
-var User = require('./user') // 引入 user 模块（自己写的模块，要通过相对路径“导入”）
-var Order = require('./order')
+var HttpRouter = require('@ppzp/http-router') // 导入 http-router
 
-var server = Http.createServer(function(req, res) { // 创建一个“服务器”
-  // 收到 http 请求时，执行这里的代码
-  if (req.url == '/user')
-    User.findAll(req, res) // 执行 User 模块的 findAll 函数
-  else if (req.url == '/order')
-    Order.findAll(req, res)
-  else
-    res.end('404') // 这只是一个普通的 404 字符串
+var router = new HttpRouter() // 实例化一个 http-router 对象，它可以帮我们收集路由
+
+// 添加一个 “方法（method）为 GET”、“路径（path）为 /user” 的路由
+router.get('/user', function(ctx) {
+  // ... 从数据库里查询数据
+  ctx.res.end('在这里响应数据')
 })
 
-server.listen(8080) // 开启服务器，并监听 8080 端口
-console.log('试试访问 http://127.0.0.1:8080/user')
-console.log('试试访问 http://127.0.0.1:8080/order')
+// 添加一个 “方法为 delete”、“路径为 /user” 的路由（这样的接口，一般用来删除用户）
+router.delete('/user', function(ctx) {
+  // ... 从数据里里删除数据
+  ctx.res.end('删除成功')
+})
+
+// ---- 上面收集好路由，下面启动一个服务器 ---- // 
+var Http = require('http')
+
+var server = Http.createServer(function(req, res) {
+  var handler = router.getHandler(req.method, req.url)
+  if(handler)
+    handler({
+      // 这个对象就是上面的 ctx 对象
+      req: req,
+      res: res
+    })
+  else
+    res.end('404')
+})
+server.listen(8080)
+console.log('访问 http://127.0.0.1:8080/user 试试')
