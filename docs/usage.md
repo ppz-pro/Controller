@@ -1,12 +1,14 @@
 # http-router 的使用
 ## 环境准备
 仅需要一个[普通的 node 环境](https://nodejs.org/zh-cn/download/)，最好 10 以上版本  
+> 如果没有的话，点击[这个链接](https://nodejs.org/zh-cn/download/)，选择你的电脑的对应的 node 版本，下载后，双击安装就可以了
+
 创建项目：
 ``` bash
-mkdir http-route-test
-cd http-route-test
-npm init -y
-npm install @ppzp/http-router lodash
+mkdir http-route-test # 创建项目目录
+cd http-route-test # 进入项目目录
+npm init -y # 借助 npm 工具，初始化项目（npm 是随 node 一起安装的工具）
+npm install @ppzp/http-router lodash # 给项目里安装 http-router 和 lodash
 ```
 
 ## 复习一下 node
@@ -50,11 +52,11 @@ exports.findAll = function(req, res) {
     {
       name: 'sixD',
       gender: 1,
-      tel: '1762xxxx4395'
+      tel: '1564xxxx4395'
     }, {
       name: '红仔',
       gender: 0,
-      tel: '1762xxxx0000'
+      tel: '1564xxxx0000'
     }
   ]
 
