@@ -12,8 +12,8 @@ npm install @ppzp/http-router lodash # 给项目里安装 http-router 和 lodash
 ```
 
 ## 复习一下 node
-> 写一个最简单的 web 服务器  
-> 如果对 node 的 http 模块很熟悉，可以跳过这部分
+> 目标：写一个最简单的 web 服务器  
+> 如果对 node 的 http 模块很熟悉，可以[跳过这部分](./#http-router)
 
 #### 基础款
 创建一个文件 ```index.js```：
@@ -128,6 +128,83 @@ if (req.method == 'GET') {
   // if...
 }
 ```
-这样是可以的，但是好像有点繁琐  
-比如想要添加一个“创建用户”的接口，却需要修改两个文件：```index.js``` 和 ```user.js```  
-代码太散了！
+这样是可以的，但是代码看起来有点乱，而且过程好像有点繁琐  
+而且随着业务的增长，“乱”与“繁琐”也会加剧  
+
+下面有请主角登场
+
+## 初见 http-router
+上面有一句加粗的话：“**根据不同的 url，执行不同的代码**”  
+这是 node 上的 web 程序要处理的重要问题  
+也是上面的代码（“复习 node”部分）处理的主要问题，但处理得不太好
+
+http-router 可以帮助我们处理这个问题  
+> 这个问题有一个名字：路由问题  
+> 一条“对应关系”（某 url 对应某些代码），可以叫做一条“路由”
+
+当需要“用户”相关的接口时：
+``` js
+var HttpRouter = require('@ppzp/http-router') // 导入 http-router
+
+var router = new HttpRouter() // 实例化一个 http-router 对象，它可以帮我们收集路由
+
+// 添加一个 “方法（method）为 GET”、“路径（path）为 /user” 的路由
+router.get('/user', function(ctx) {
+  // ... 从数据库里查询数据
+  ctx.res.end('在这里响应数据')
+})
+
+// 添加一个 “方法为 delete”、“路径为 /user” 的路由（这样的接口，一般用来删除用户）
+router.delete('/user', function(ctx) {
+  // ... 从数据里里删除数据
+  ctx.res.end('删除成功')
+})
+
+// ---- 上面收集好路由，下面启动一个服务器 ---- //
+
+var Http = require('http')
+
+var server = Http.createServer(function(req, res) {
+  var handler = router.get(req.method, req.url) // 根据 url 获取对应的函数，来处理请求
+  if(handler)
+    handler({
+      // 这个对象就是上面的 ctx 对象
+      req: req,
+      res: res
+    })
+  else
+    res.end('404')
+})
+server.listen(8080)
+console.log('访问 http://127.0.0.1:8080/user 试试')
+```
+
+当然，实际的开发过程中，肯定不会把所有代码写在一个文件里，可以这样分：
++ ```index.js```: 启动服务器
++ ```router.js```: 实例化 http-router
++ ```user.js```: user 相关接口 
++ ```order.js```: order 相关接口 
+
+比如 ```user.js``` 大概是这样：
+``` js
+var router = require('./router')
+
+// 获取用户信息
+router.get('/user', function(ctx) {
+  // ...
+})
+// 创建用户信息
+router.post('/user', function(ctx) {
+  // ...
+})
+// 更新用户信息
+// router.put('/user', ...
+// 删除用户信息
+// router.delete('/user', ...
+```
+这样就比较舒服了  
+但是，```user.js``` 里写了很多次 ```'/user'```！  
+使用 ```Controller``` 优化一下吧
+
+## Controller
+[代码仓库](https://github.com/ppz-pro/http-router/tree/ad0e65c4ac52ba4fed282925be7cbba119220eac)

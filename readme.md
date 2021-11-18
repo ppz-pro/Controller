@@ -47,3 +47,5 @@ router.post('/user', 公用函数, function handler666(ctx) {
 每一个公用函数都是一个三明治，它里面有一些蔬菜  
 而对公用函数“前面的”其他公用函数来说：  
 后面的公用函数，就是前面公用函数的“蔬菜”
+
+[更多文档](https://ppz-pro.github.io/http-router/)
