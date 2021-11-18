@@ -13,7 +13,7 @@ npm install @ppzp/http-router lodash # 给项目里安装 http-router 和 lodash
 
 ## 复习一下 node
 > 目标：写一个最简单的 web 服务器  
-> 如果对 node 的 http 模块很熟悉，可以[跳过这部分](./#http-router)
+> 如果对 node 的 http 模块很熟悉，可以[跳过这部分](#初见-http-router)
 
 #### 基础款
 创建一个文件 ```index.js```：
@@ -136,7 +136,7 @@ if (req.method == 'GET') {
 ## 初见 http-router
 上面有一句加粗的话：“**根据不同的 url，执行不同的代码**”  
 这是 node 上的 web 程序要处理的重要问题  
-也是上面的代码（“复习 node”部分）处理的主要问题，但处理得不太好
+也是上面的代码（“[复习 node”部分](#复习一下-node)）处理的主要问题，但处理得不太好
 
 http-router 可以帮助我们处理这个问题  
 > 这个问题有一个名字：路由问题  
@@ -207,4 +207,4 @@ router.post('/user', function(ctx) {
 使用 ```Controller``` 优化一下吧
 
 ## Controller
-[代码仓库](https://github.com/ppz-pro/http-router/tree/ad0e65c4ac52ba4fed282925be7cbba119220eac)
+[案例地址](https://github.com/ppz-pro/http-router/tree/ad0e65c4ac52ba4fed282925be7cbba119220eac)
