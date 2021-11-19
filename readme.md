@@ -2,7 +2,7 @@
 两个功能：路由、AOP  
 一个特色：为了保持代码简单，不检查参数  
 
-[文档](https://ppz-pro.github.io/http-router/)
+[更多文档、案例](https://ppz-pro.github.io/http-router/)
 
 ### 路由
 web 应用中，“路由”是一个重要的基础功能，即要解决：
@@ -48,4 +48,4 @@ router.post('/user', 公用函数, function handler666(ctx) {
 而对公用函数“前面的”其他公用函数来说：  
 后面的公用函数，就是前面公用函数的“蔬菜”
 
-[更多文档](https://ppz-pro.github.io/http-router/)
+[更多文档、案例](https://ppz-pro.github.io/http-router/)
