@@ -1,71 +1,55 @@
 const Sandwich = require('@ppzp/sandwich')
 const isString = require('lodash/isString')
 
-class Collector {
+const METHODS = ['GET', 'POST', 'PUT', 'DELETE'] // 这种形式，以后好扩展，暂时认为这几种够了
+const methods = ['get', 'post', 'put', 'delete']
+
+class Router {
   constructor(options = {}) {
     this.baseUrl = options.baseUrl || ''
     this.breads = options.breads || []
-  }
-
-  get() {
-    this.__format('GET', arguments)
-  }
-  post() {
-    this.__format('POST', arguments)
-  }
-  put() {
-    this.__format('PUT', arguments)
-  }
-  delete() {
-    this.__format('DELETE', arguments)
-  }
-
-  __format(method, args) {
-    args = Array.from(args) // url 和 handlers
-    const url = isString(args[0]) ? args.shift() : '' // 取出 args 里的 url
-    this.add(method, url, args)
+    this.data = {}
+    for(const METHOD of METHODS)
+      this.data[METHOD] = {}
   }
 
   add(method, url, handlers) {
-    throw Error('未实现 add 方法')
-  }
-}
-
-class Controller extends Collector {
-  /** @param {HttpRouter} router */
-  constructor(router, options) {
-    super(options)
-    this.router = router
+    url = this.baseUrl + url
+    if(this.data[method][url])
+      throw Error(`路由重复 ${method} ${url}`)
+    else
+      this.data[method][url] = this.breads.concat(handlers)
   }
 
-  add(method, url, handlers) {
-    this.router.add(method, this.baseUrl + url, this.breads.concat(handlers))
-  }
-}
-
-class HttpRouter extends Collector {
-  data = {
-    GET: {},
-    POST: {},
-    PUT: {},
-    DELETE: {}
-  }
-
-  constructor(options = {}) {
-    super(options)
-  }
-
-  createController(options) {
-    return new Controller(this, options)
-  }
-
-  add(method, url, handlers) {
-    this.data[method][this.baseUrl + url] = Sandwich(...this.breads.concat(handlers))
+  makeSandwich() {
+    for(const m of METHODS)
+      for(const url in this.data[m])
+        this.data[m][url] = Sandwich(...this.data[m][url])
   }
 
   getHandler(method, url) {
     return this.data[method] && this.data[method][url]
   }
+
+  /**
+   * 添加下级 Router（setChild 好墨迹，不要添加这个函数）
+   * @param {Router[]} list 
+   */
+  setChildren = function(list) {
+    for(const METHOD of METHODS)
+      for(const child of list)
+        for(const url in child.data[METHOD])
+          this.add(METHOD, url, child.data[METHOD][url])
+  }
 }
 
-module.exports = HttpRouter
+// 给 Router 添加 get、post、put、delete 方法
+for(const i in methods)
+  Router.prototype[methods[i]] = function(...args) {
+    args = Array.from(args) // url 和 handlers
+    const url = isString(args[0]) ? args.shift() : '' // 取出 args 里的 url
+
+    this.add(METHODS[i], url, args)
+  }
+
+module.exports = Router

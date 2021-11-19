@@ -1,6 +1,6 @@
-const HttpRouter = require('@ppzp/http-router')
+const Router = require('@ppzp/http-router')
 
-const router = new HttpRouter({
+const router = new Router({
   baseUrl: '/api'
 })
 
@@ -16,16 +16,22 @@ function checkLogin(vege, ctx) {
     ctx.res.end('not login')
 }
 
-const con = router.createController({
+const UserRouter = new Router({
   baseUrl: '/user',
   breads: [
     checkLogin // 凡由此 controller 处理的请求，都执行 checkLogin
   ]
 })
+
 // 响应请求：GET /api/user
-con.get(function(ctx) {
+UserRouter.get(function(ctx) {
   ctx.res.end('/api/user')
 })
+
+router.setChildren([
+  UserRouter
+])
+router.makeSandwich()
 
 // ------------ 在 node.js 里使用 ----------------
 const Http = require('http')
