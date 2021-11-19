@@ -1,23 +1,25 @@
-var router = require('./router')
+var Router = require('@ppzp/http-router')
 
-var con = router.createController({
+var user = new Router({
   baseUrl: '/user'
 })
 
 // 添加一个 “方法（method）为 GET”、“路径（path）为 /user” 的路由
-con.get(function(ctx) {
+user.get(function(ctx) {
   // ... 从数据库里查询数据
   ctx.res.end('GET /user')
 })
 
 // 删除
-con.delete(function(ctx) {
+user.delete(function(ctx) {
   // ...
 })
-// con.put(function(ctx) { ...
-// con.post(function(ctx) { ...
+// user.put(function(ctx) { ...
+// user.post(function(ctx) { ...
 
 // 添加一个 “方法（method）为 GET”、“路径（path）为 /user/xxxx” 的路由
-con.get('/xxxx', function(ctx) {
+user.get('/xxxx', function(ctx) {
   ctx.res.end('GET /user/xxxx')
 })
+
+module.exports = user

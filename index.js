@@ -1,6 +1,5 @@
 var Http = require('http')
 var router = require('./router')
-require('./user')
 
 var server = Http.createServer(function(req, res) {
   var handler = router.getHandler(req.method, req.url)
