@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ppzp/http-router": "0.0.1",
+    "@ppzp/http-router": "0.1.0",
     "lodash": "^4.17.21"
   }
 }

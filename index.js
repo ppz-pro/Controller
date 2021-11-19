@@ -1,6 +1,6 @@
-var HttpRouter = require('@ppzp/http-router') // 导入 http-router
+var Router = require('@ppzp/http-router') // 导入 http-router
 
-var router = new HttpRouter() // 实例化一个 http-router 对象，它可以帮我们收集路由
+var router = new Router() // 实例化一个 http-router 对象，它可以帮我们收集路由
 
 // 添加一个 “方法（method）为 GET”、“路径（path）为 /user” 的路由
 router.get('/user', function(ctx) {
@@ -13,6 +13,8 @@ router.delete('/user', function(ctx) {
   // ... 从数据里里删除数据
   ctx.res.end('删除成功')
 })
+
+router.makeSandwich()
 
 // ---- 上面收集好路由，下面启动一个服务器 ---- // 
 var Http = require('http')
