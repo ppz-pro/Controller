@@ -1,5 +1,4 @@
 const Sandwich = require('@ppzp/sandwich')
-const isString = require('lodash/isString')
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE'] // 这种形式，以后好扩展，暂时认为这几种够了
 const methods = ['get', 'post', 'put', 'delete']
