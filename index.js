@@ -47,7 +47,7 @@ class Router {
 for(const i in methods)
   Router.prototype[methods[i]] = function(...args) {
     args = Array.from(args) // url 和 handlers
-    const url = isString(args[0]) ? args.shift() : '' // 取出 args 里的 url
+    const url = (typeof args[0] == 'string') ? args.shift() : '' // 取出 args 里的 url
 
     this.add(METHODS[i], url, args)
   }

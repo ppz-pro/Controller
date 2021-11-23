@@ -1,6 +1,6 @@
 {
   "name": "@ppzp/http-router",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/ppz-pro/http-router#readme",
   "dependencies": {
-    "lodash": ">=4.0.0",
     "@ppzp/sandwich": "0.0.3"
   }
 }
