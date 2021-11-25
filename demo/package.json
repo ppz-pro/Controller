@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@ppzp/http-router": "file:../ppzp-http-router-0.0.1.tgz",
-    "lodash": "^4.17.21"
+    "@ppzp/http-router": "file:../ppzp-http-router-0.1.4.tgz"
   }
 }

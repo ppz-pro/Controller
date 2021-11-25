@@ -5,6 +5,11 @@ const methods = ['get', 'post', 'put', 'delete']
 
 class Router {
   constructor(options = {}) {
+    if(typeof options == 'string')
+      options = {
+        baseUrl: options
+      }
+    
     this.baseUrl = options.baseUrl || ''
     this.breads = options.breads || []
     this.data = {}
