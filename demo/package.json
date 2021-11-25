@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@ppzp/http-router": "file:../ppzp-http-router-0.1.4.tgz"
+    "@ppzp/controller": "file:../ppzp-controller-0.0.0.tgz"
   }
 }

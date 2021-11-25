@@ -1,11 +1,11 @@
-const Router = require('@ppzp/http-router')
+const Controller = require('@ppzp/controller')
 
-const router = new Router({
+const con = new Controller({
   baseUrl: '/api'
 })
 
 // 响应请求：GET /api/test
-router.get('/test', function(ctx) {
+con.get('/test', function(ctx) {
   ctx.res.end('/api/test')
 })
 
@@ -16,7 +16,7 @@ function checkLogin(vege, ctx) {
     ctx.res.end('not login')
 }
 
-const UserRouter = new Router({
+const userController = new Controller({
   baseUrl: '/user',
   breads: [
     checkLogin // 凡由此 controller 处理的请求，都执行 checkLogin
@@ -24,22 +24,22 @@ const UserRouter = new Router({
 })
 
 // 响应请求：GET /api/user
-UserRouter.get(function(ctx) {
+userController.get(function(ctx) {
   ctx.res.end('/api/user')
 })
 
-router.setChildren([
-  UserRouter
+con.setChildren([
+  userController
 ])
-router.makeSandwich()
+con.makeSandwich()
 
 // ------------ 在 node.js 里使用 ----------------
 const Http = require('http')
 
-console.log(router.data)
+console.log(con.data)
 
 Http.createServer(function(req, res) {
-  const handler = router.getHandler(req.method, req.url)
+  const handler = con.getHandler(req.method, req.url)
   if(handler)
     handler({ // { req, res } 即上面的 ctx
       req,

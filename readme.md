@@ -1,31 +1,40 @@
 一个 js 框架，两个功能：路由、AOP  
 ``` bash
-npm install @ppzp/http-router
+npm install @ppzp/controller
 ```
 [皮皮仔宣言](https://github.com/ppz-pro/declaration)
 
-#### 路由
-web 应用中，“路由”是一个重要的基础功能，即要解决：
-> 当服务器收到一条 http 请求，由哪个函数，来处理这条请求  
+#### Controller
+一般来说，Controller(控制器) 经常做“页面”与“数据库”的“中间人”  
+比如，有个页面需要展示用户信息:
++ 页面给后台发起请求：“给我用户信息”
++ 在后台的 controller 马上就收到请求
++ 它（controller）会找到对应的代码（handler）来处理
++ 一般，这个“处理”过程，就是从数据库里拿数据
++ 取到数据后，再由 controller 送到页面上
 
-**http-router** 使用了类似 express 的处理方式：
+#### 路由
+“路由”是 Controller 的一个重要功能，即要解决：
+> 当服务器收到一条 http 请求，由哪个函数（handler），来处理这个请求  
+
+**@ppzp/controller** 使用了类似 express 的处理方式：
 ``` js
-router.post('/user', function() {
+controller.post('/user', function() {
   // ...
 })
 ```
 
 #### AOP
-另外，不同的请求，可能需要相同的处理逻辑  
-**代码复用**是任何应用面临的重要问题
-**http-router** 是这样处理的：
+不同的请求，可能需要相同的处理逻辑  
+**代码复用**是任何应用面临的重要问题  
+**@ppzp/controller** 是这样处理的：
 ``` js
 function 公用函数(ctx, vege) {
   // ...
   vege(ctx) // 执行 vege，就是在执行下面的 handler666 函数
   // ...
 }
-router.post('/user', 公用函数, function handler666(ctx) {
+controller.post('/user', 公用函数, function handler666(ctx) {
   // ...
 })
 ```
@@ -37,7 +46,7 @@ function 公用函数(ctx, vege) {
   const result = vege(ctx)
   // vege 之后，再做后续处理
 }
-router.post('/user', 公用函数, function handler666(ctx) {
+controller.post('/user', 公用函数, function handler666(ctx) {
   // ...
 })
 ```
@@ -55,14 +64,14 @@ router.post('/user', 公用函数, function handler666(ctx) {
 
 创建项目：
 ``` bash
-mkdir test-http-router # 创建项目目录
-cd test-http-router # 进入项目目录
+mkdir test-controller # 创建项目目录
+cd test-controller # 进入项目目录
 # 到这里，只是一个普通的文件夹
 
 npm init -y # 使用 npm，初始化一个 node 项目
 # 到这里，一个空的 node 项目就创建好了
 
-npm install @ppzp/http-router # 在项目中安装 resh
+npm install @ppzp/controller # 在项目中安装 resh
 ```
 
 #### 案例

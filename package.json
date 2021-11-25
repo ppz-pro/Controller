@@ -1,15 +1,16 @@
 {
-  "name": "@ppzp/http-router",
-  "version": "0.1.4",
-  "description": "",
+  "name": "@ppzp/controller",
+  "version": "0.0.0",
+  "description": "用来处理路由和 AOP",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ppz-pro/http-router.git"
+    "url": "git+https://github.com/ppz-pro/controller.git"
   },
   "keywords": [
     "http",
     "router",
+    "controller",
     "web",
     "aop",
     "api",
@@ -18,9 +19,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ppz-pro/http-router/issues"
+    "url": "https://github.com/ppz-pro/controller/issues"
   },
-  "homepage": "https://github.com/ppz-pro/http-router#readme",
+  "homepage": "https://github.com/ppz-pro/controller#readme",
   "dependencies": {
     "@ppzp/sandwich": "0.0.3"
   }
