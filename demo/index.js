@@ -36,8 +36,6 @@ con.makeSandwich()
 // ------------ 在 node.js 里使用 ----------------
 const Http = require('http')
 
-console.log(con.data)
-
 Http.createServer(function(req, res) {
   const handler = con.getHandler(req.method, req.url)
   if(handler)

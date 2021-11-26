@@ -12,38 +12,35 @@ class Controller {
     
     this.baseUrl = options.baseUrl || ''
     this.breads = options.breads || []
-    this.data = {}
+    this.__data = {}
     for(const METHOD of METHODS)
-      this.data[METHOD] = {}
+      this.__data[METHOD] = {}
   }
 
   add(method, url, handlers) {
     url = this.baseUrl + url
-    if(this.data[method][url])
+    if(this.__data[method][url])
       throw Error(`路由重复 ${method} ${url}`)
     else
-      this.data[method][url] = this.breads.concat(handlers)
+      this.__data[method][url] = this.breads.concat(handlers)
   }
 
   makeSandwich() {
     for(const m of METHODS)
-      for(const url in this.data[m])
-        this.data[m][url] = Sandwich(...this.data[m][url])
+      for(const url in this.__data[m])
+        this.__data[m][url] = Sandwich(...this.__data[m][url])
   }
 
   getHandler(method, url) {
-    return this.data[method] && this.data[method][url]
+    return this.__data[method] && this.__data[method][url]
   }
 
-  /**
-   * 添加下级 Controller（setChild 好墨迹，不要添加这个函数）
-   * @param {Controller[]} list 
-   */
-  setChildren = function(list) {
+  // 添加下级 Controller（setChild 好墨迹，不要添加这个函数）
+  setChildren(list) {
     for(const METHOD of METHODS)
       for(const child of list)
-        for(const url in child.data[METHOD])
-          this.add(METHOD, url, child.data[METHOD][url])
+        for(const url in child.__data[METHOD])
+          this.add(METHOD, url, child.__data[METHOD][url])
   }
 }
 

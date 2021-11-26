@@ -1,6 +1,6 @@
 {
   "name": "@ppzp/controller",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "用来处理路由和 AOP",
   "main": "index.js",
   "repository": {
